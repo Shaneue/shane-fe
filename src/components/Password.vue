@@ -1,6 +1,7 @@
 <template>
   <el-container class="password">
     <el-header>
+      <el-button @click="newCode">NEW CODE</el-button>
       <el-button @click="newPassword">CREATE</el-button>&#8195;&#8195;
       <el-input
         class="input_fixed"
@@ -73,7 +74,13 @@
           <el-button type="primary" @click.prevent="submitForm('form')">YES</el-button>
         </span>
       </el-dialog>
-      <el-table :data="tableData" empty-text="EMPTY" style="width: 100%" border max-height="500">
+      <el-table
+        :data="tableData"
+        empty-text="EMPTY TABLE"
+        style="width: 100%"
+        border
+        max-height="500"
+      >
         <el-table-column align="center" fixed prop="w" label="DESCRIPTION" width="150"></el-table-column>
         <el-table-column align="center" prop="a" label="ACCOUNT" width="180"></el-table-column>
         <el-table-column align="center" prop="p" label="PASSWORD" width="180"></el-table-column>
@@ -256,6 +263,36 @@ export default {
       }
       this.dialogTitle = 'NEW PASSWORD'
       this.dialogVisible = true
+    },
+    newCode() {
+      if (!this.checkCode()) {
+        return
+      }
+      this.$prompt('PLEASE REMEMBER THIS CODE', 'PROMPT', {
+        confirmButtonText: 'YES',
+        cancelButtonText: 'CANCELL',
+        type: 'warning'
+      }).then(({ value }) => {
+        this.$axios({
+          method: 'post',
+          url: 'codeModify',
+          data: {
+            oldCode: this.code,
+            newCode: value
+          }
+        }).then(response => {
+          if (response.data.status === 0) {
+            this.$global.info('SUCCESS')
+            this.tableData = []
+          } else {
+            this.$global.error(response.data.message)
+          }
+        }).catch((error) => {
+          this.$global.error(error)
+        })
+      }).catch(() => {
+        this.$global.info('CANCELL')
+      })
     },
     edit(row) {
       this.form.id = row.k

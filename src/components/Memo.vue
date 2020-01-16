@@ -11,6 +11,7 @@
         :props="defaultProps"
         highlight-current
         ref="tree"
+        empty-text="EMPTY LIST"
       ></el-tree>
     </el-aside>
     <el-main>
