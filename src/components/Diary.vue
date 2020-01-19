@@ -88,7 +88,7 @@ export default {
     },
     update() {
       let date = this.diary.date
-      this.$confirm('WILL OVERWRITE ' + (date === null ? 'PLEASE PICK A DAY' : (date.year + '-' + date.month + '-' + date.date)), 'CONFIRM', {
+      this.$confirm('WILL OVERWRITE ' + (date === null ? 'PLEASE PICK A DAY' : (date.year + '-' + date.month + '-' + date.date)), 'CONFIRMATION', {
         confirmButtonText: 'YES',
         cancelButtonText: 'CANCELL',
         type: 'warning',

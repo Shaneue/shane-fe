@@ -77,7 +77,7 @@ export default {
       if (!this.checkInfo()) {
         return
       }
-      this.$confirm('WILL DELETE MEMO', 'CONFIRM', {
+      this.$confirm('WILL DELETE MEMO', 'CONFIRMATION', {
         confirmButtonText: 'YES',
         cancelButtonText: 'CANCELL',
         type: 'warning',

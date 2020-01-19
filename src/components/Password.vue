@@ -312,7 +312,7 @@ export default {
       this.dialogVisible = true
     },
     del(row) {
-      this.$confirm('WILL DELETE PASSWORD', 'CONFIRM', {
+      this.$confirm('WILL DELETE PASSWORD', 'CONFIRMATION', {
         confirmButtonText: 'YES',
         cancelButtonText: 'CANCELL',
         type: 'warning',

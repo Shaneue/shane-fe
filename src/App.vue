@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     open() {
-      this.$confirm('WILL DOWNLOAD RESOURCE', 'CONFIRM', {
+      this.$confirm('WILL DOWNLOAD RESOURCE', 'CONFIRMATION', {
         confirmButtonText: 'YES',
         cancelButtonText: 'CANCELL',
         type: 'warning',
