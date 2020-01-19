@@ -1,8 +1,9 @@
 <template>
   <el-container class="memo">
     <el-aside width="20%">
-      <el-button @click="create" size="medium">CREATE</el-button>
-      <el-button @click="del" size="medium">DELETE</el-button>
+      <el-button @click="reName" size="small">RENAME</el-button>
+      <el-button @click="create" size="small">CREATE</el-button>
+      <el-button @click="del" size="small">DELETE</el-button>
       <el-tree
         style="margin-top:20px"
         :data="category"
@@ -100,13 +101,42 @@ export default {
       })
     },
     create() {
-      this.$prompt('ENTER NEW TOPIC', 'PROMPT', {
+      this.$prompt('ENTER NEW TOPIC', 'CREATE', {
         confirmButtonText: 'YES',
         cancelButtonText: 'CANCELL'
       }).then(({ value }) => {
         this.$axios({
           method: 'post',
           url: 'memo/' + value
+        }).then(response => {
+          if (response.data.status === 0) {
+            this.$global.info('SUCCESS')
+            this.clear()
+          } else {
+            this.$global.error(response.data.message)
+          }
+        }).catch((error) => {
+          this.$global.error(error)
+        })
+      }).catch(() => {
+        this.$global.info('CANCELL')
+      })
+    },
+    reName() {
+      if (!this.checkInfo()) {
+        return
+      }
+      this.$prompt('ENTER NEW TOPIC', 'RENAME', {
+        confirmButtonText: 'YES',
+        cancelButtonText: 'CANCELL'
+      }).then(({ value }) => {
+        this.$axios({
+          method: 'post',
+          url: 'memo',
+          data: {
+            oldName: this.info,
+            newName: value
+          }
         }).then(response => {
           if (response.data.status === 0) {
             this.$global.info('SUCCESS')

@@ -87,19 +87,29 @@ export default {
       this.diary.items = []
     },
     update() {
-      this.$axios({
-        method: 'post',
-        url: 'diary',
-        data: this.diary
-      }).then(response => {
-        if (response.data.status === 0) {
-          this.$global.success(response.data.message)
-          this.init()
-        } else {
-          this.$global.error(response.data.message)
-        }
-      }).catch((error) => {
-        this.$global.error(error)
+      let date = this.diary.date
+      this.$confirm('WILL OVERWRITE ' + (date === null ? 'PLEASE PICK A DAY' : (date.year + '-' + date.month + '-' + date.date)), 'CONFIRM', {
+        confirmButtonText: 'YES',
+        cancelButtonText: 'CANCELL',
+        type: 'warning',
+        center: false
+      }).then(() => {
+        this.$axios({
+          method: 'post',
+          url: 'diary',
+          data: this.diary
+        }).then(response => {
+          if (response.data.status === 0) {
+            this.$global.success(response.data.message)
+            this.init()
+          } else {
+            this.$global.error(response.data.message)
+          }
+        }).catch((error) => {
+          this.$global.error(error)
+        })
+      }).catch(() => {
+        this.$global.info('CANCELL')
       })
     },
     removeItem(item) {
