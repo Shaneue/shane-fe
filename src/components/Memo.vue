@@ -18,7 +18,12 @@
     <el-main>
       <el-button disabled type="info" size="medium">{{info}}</el-button>
       <el-button @click="update" size="medium">UPDATE</el-button>
-      <el-input type="textarea" v-model="content" autosize style="margin-top:10px"></el-input>
+      <el-input
+        type="textarea"
+        v-model="content"
+        :autosize="{ minRows: 4, maxRows: 24}"
+        style="margin-top:10px"
+      ></el-input>
     </el-main>
   </el-container>
 </template>
