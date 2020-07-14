@@ -19,6 +19,7 @@
       <el-button disabled type="info" size="medium">{{info}}</el-button>
       <el-button @click="update" size="medium">UPDATE</el-button>
       <el-input
+        ref="input"
         type="textarea"
         v-model="content"
         :autosize="{ minRows: 4, maxRows: 24}"
@@ -52,6 +53,7 @@ export default {
           this.content = response.data.data
           this.info = data.topic
           this.key = data.k
+          this.$refs['input'].focus()
         } else {
           this.$global.error(response.data.message)
         }
