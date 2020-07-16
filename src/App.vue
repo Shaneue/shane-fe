@@ -18,7 +18,7 @@
           <U>UPLOAD</U>
         </el-menu-item>
         <el-menu-item>
-          <a href="https://b.shaneu.cn" target="blank">BLOG</a>
+          <a href="http://b.shaneu.cn" target="blank">BLOG</a>
         </el-menu-item>
       </el-menu>
 
